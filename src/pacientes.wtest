@@ -108,6 +108,26 @@ describe "Testing de pacientes"{
 		assert.equals(1.8, nicolas.nivelDeDolor())
 		assert.equals(34, nicolas.fortalezaMuscular())
 	}
+	test "Victoria no puede hacer la rutina que tiene asignada"{
+		assert.notThat(victoria.puedeHacerRutina())
+	}
+	test "Julián puede hacer la rutina que tiene asignada"{
+		assert.that(julian.puedeHacerRutina())
+	}
+	test "Julian despues de hacer su rutina su nivel de dolor baja a 29.3, y su fortaleza sube a 62"{
+		julian.realizarSesionCompleta()
+		assert.equals(29.3, julian.nivelDeDolor())
+		assert.equals(62, julian.fortalezaMuscular())
+	}
+	test "Zoe puede hacer la rutina que tiene asignada"{
+		assert.that(zoe.puedeHacerRutina())
+	}
+	test "Zoe despues de hacer su rutina por una vez su nivel de dolor baja a 3.4, y su fortaleza sube a 51"{
+		zoe.cantidadADecrementar(2)
+		zoe.realizarSesionCompleta()
+		assert.equals(3.4, zoe.nivelDeDolor())
+		assert.equals(51, zoe.fortalezaMuscular())
+	}
 
 }
 
