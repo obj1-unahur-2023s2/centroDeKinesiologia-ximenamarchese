@@ -1,0 +1,114 @@
+import pacientes.*
+import aparatos.*
+
+describe "Testing de pacientes"{
+	
+	const leonardo = new Paciente(edad = 40, fortalezaMuscular = 20, nivelDeDolor = 10)
+	const milena = new Paciente(edad = 3, fortalezaMuscular = 50, nivelDeDolor = 30)
+	const nicolas = new Resistente(edad = 40, fortalezaMuscular = 20, nivelDeDolor = 10)
+	const victoria = new Caprichoso(edad = 30, fortalezaMuscular = 40, nivelDeDolor = 10)
+	const julian = new Caprichoso(edad = 20, fortalezaMuscular = 50, nivelDeDolor = 54)
+	const zoe = new RapidaRecuperacion(edad = 50, fortalezaMuscular = 40, nivelDeDolor = 14)
+	
+	const magnetoLeonardo = new Magneto()
+	const biciLeonardo = new Bicicleta()
+	const minitrampLeonardo = new Minitramp()
+	
+	const magnetoMilena = new Magneto()
+	const biciMilena = new Bicicleta()
+	const minitrampMilena= new Minitramp()
+	
+	const magnetoNicolas = new Magneto()
+	const biciNicolas = new Bicicleta()
+	const minitrampNicolas = new Minitramp()
+	
+	const magnetoVictoria = new Magneto()
+	const biciVictoria = new Bicicleta()
+	const minitrampVictoria= new Minitramp()
+	
+	const biciRojaJulian = new Bicicleta(color = "Rojo")
+	const magnetoJulian = new Magneto(color = "Verde")
+	const biciJulian = new Bicicleta()
+	
+	const magnetoZoe = new Magneto()
+	const biciZoe = new Bicicleta()
+	const minitrampZoe = new Minitramp()
+	
+	method initialize(){
+		leonardo.agregarAparato(biciLeonardo)
+		leonardo.agregarAparato(minitrampLeonardo)
+		leonardo.agregarAparato(biciLeonardo)
+		leonardo.agregarAparato(magnetoLeonardo)
+		
+		milena.agregarAparato(magnetoMilena)
+		milena.agregarAparato(biciMilena)
+		
+		nicolas.agregarAparato(biciNicolas)
+		nicolas.agregarAparato(minitrampNicolas)
+		nicolas.agregarAparato(biciNicolas)
+		nicolas.agregarAparato(magnetoNicolas)
+		
+		victoria.agregarAparato(biciVictoria)
+		victoria.agregarAparato(minitrampVictoria)
+		victoria.agregarAparato(biciVictoria)
+		victoria.agregarAparato(magnetoVictoria)
+		
+		julian.agregarAparato(biciRojaJulian)
+		julian.agregarAparato(magnetoJulian)
+		julian.agregarAparato(biciJulian)
+		
+		zoe.agregarAparato(biciZoe)
+		zoe.agregarAparato(minitrampZoe)
+		zoe.agregarAparato(biciZoe)
+		zoe.agregarAparato(magnetoZoe)
+	}
+	
+	test "Leonardo puede usar los 3 aparatos"{
+		assert.that(leonardo.puedeUsarAparato(magnetoLeonardo))
+		assert.that(leonardo.puedeUsarAparato(biciLeonardo))
+		assert.that(leonardo.puedeUsarAparato(minitrampLeonardo))
+	}
+	
+	test "Milena puede usar solo el magneto"{
+		assert.that(milena.puedeUsarAparato(magnetoMilena))
+		assert.notThat(milena.puedeUsarAparato(biciMilena))
+		assert.notThat(milena.puedeUsarAparato(minitrampMilena))
+	}
+	
+	test "Después de usar el magneto una vez, el nivel de dolor de Leonardo baja a 9"{
+		leonardo.usarAparato(magnetoLeonardo)
+		assert.equals(9, leonardo.nivelDeDolor())
+	}
+	test "Después de usar el magneto una vez, el nivel de dolor de Milena baja a 27"{
+		milena.usarAparato(magnetoMilena)
+		assert.equals(27, milena.nivelDeDolor())
+	}
+	test "Después de usar la bicicleta una vez, el nivel de dolor de Leonardo baja a 6, y la fortaleza sube a 23"{
+		leonardo.usarAparato(biciLeonardo)
+		assert.equals(6, leonardo.nivelDeDolor())
+		assert.equals(23, leonardo.fortalezaMuscular())
+	}
+	test "Después de usar el minitramp una vez, la fortaleza de Leonardo sube a 22"{
+		leonardo.usarAparato(minitrampLeonardo)
+		assert.equals(22, leonardo.fortalezaMuscular())
+	}
+	test "Leonardo despues de realizar su rutina, su nivel de dolor baja a 1.8, y su fortaleza sube a 30"{
+		leonardo.realizarSesionCompleta()
+		assert.equals(1.8, leonardo.nivelDeDolor())
+		assert.equals(28.3, leonardo.fortalezaMuscular())
+	}
+	test "Milena no puede hacer la rutina que tiene asignada"{
+		assert.notThat(milena.puedeHacerRutina())
+	}
+	test "Nicolas puede hacer la rutina que tiene asignada"{
+		assert.that(nicolas.puedeHacerRutina())
+	}
+	test "Nicolas despues de hacer su rutina su nivel de dolor baja a 1.8, y su fortaleza sube a 34"{
+		nicolas.realizarSesionCompleta()
+		assert.equals(1.8, nicolas.nivelDeDolor())
+		assert.equals(34, nicolas.fortalezaMuscular())
+	}
+
+}
+
+
